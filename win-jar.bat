@@ -1,7 +1,7 @@
 java -cp classes nxt.tools.ManifestGenerator
-del nxt.jar
-jar cfm nxt.jar resource\nxt.manifest.mf -C classes .
-del nxtservice.jar
-jar cfm nxtservice.jar resource\nxtservice.manifest.mf -C classes .
+del gal.jar
+jar cfm gal.jar resource\nxt.manifest.mf -C classes .
+del galservice.jar
+jar cfm galservice.jar resource\nxtservice.manifest.mf -C classes .
 
 echo "jar files generated successfully"
