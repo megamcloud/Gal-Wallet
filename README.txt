@@ -7,7 +7,7 @@ better performance and has been more tested, but OpenJDK is also supported.
 Using the installer:
 
 An IzPack based installation package is provided. Click on the corresponding
-jar/exe/dmg package, or run "java -jar galo.jar" to start the
+jar/exe/dmg package, or run "java -jar gal.jar" to start the
 installer. See https://bitbucket.org/JeanLucPicard/nxt/issues/283 for more
 details about the IzPack installer. After installation, use the shortcuts or
 desktop icons to start the Gal server.
@@ -15,7 +15,7 @@ desktop icons to start the Gal server.
 
 Using the gal-client.zip package:
 
-Unpack the gal-client.zip package and open a shell in the resulting nxt
+Unpack the gal-client.zip package and open a shell in the resulting gal
 directory. Execute the run.sh or start.sh script if using Linux or BSD, run.bat
 if using Windows, or run.command if using Mac.
 
@@ -126,6 +126,6 @@ The source is included in the src subdirectory. To compile it on unix, just run
 the enclosed compile.sh script. This will compile all java classes and put them
 under the classes subdirectory, which is already in the classpath used by the
 run.sh startup script. The compiled class files can optionally be packaged in a
-galo.jar file using the enclosed jar.sh script, and then galo.jar should be
+gal.jar file using the enclosed jar.sh script, and then gal.jar should be
 included in the classpath instead of the classes subdirectory.
 
