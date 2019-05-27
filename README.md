@@ -32,4 +32,4 @@ The java process logs its activities and error messages to the standard output w
 
 Compiling:
 
-The source is included in the src subdirectory. To compile it on unix, just run the enclosed compile.sh script. This will compile all java classes and put them under the classes subdirectory, which is already in the classpath used by the run.sh startup script. The compiled class files can optionally be packaged in a galo.jar file using the enclosed jar.sh script, and then galo.jar should be included in the classpath instead of the classes subdirectory.
+The source is included in the src subdirectory. To compile it on unix, just run the enclosed compile.sh script. This will compile all java classes and put them under the classes subdirectory, which is already in the classpath used by the run.sh startup script. The compiled class files can optionally be packaged in a gal.jar file using the enclosed jar.sh script, and then gal.jar should be included in the classpath instead of the classes subdirectory.
