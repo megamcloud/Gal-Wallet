@@ -25,7 +25,7 @@ public final class Constants {
     public static final boolean isLightClient = Nxt.getBooleanProperty("nxt.isLightClient");
     public static final String customLoginWarning = Nxt.getStringProperty("nxt.customLoginWarning", null, false, "UTF-8");
 
-    public static final String COIN_SYMBOL = "GAL";
+    public static final String COIN_SYMBOL = "GalCoin";
     public static final String ACCOUNT_PREFIX = "GAL";
     public static final String PROJECT_NAME = "Gal";
     public static final int MAX_NUMBER_OF_TRANSACTIONS = Nxt.getIntProperty("nxt.maxNumberOfTransactions", 255);

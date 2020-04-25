@@ -1,14 +1,14 @@
 #!/bin/bash
-VERSION=$1
+VERSION=$1 1.11.15
 if [ -x ${VERSION} ];
 then
 	echo VERSION not defined
 	exit 1
 fi
-APPLICATION="nxt-clone"
+APPLICATION="galcoin"
 PACKAGE=${APPLICATION}-client-${VERSION}
 echo PACKAGE="${PACKAGE}"
-CHANGELOG=nxt-clone-client-${VERSION}.changelog.txt
+CHANGELOG=galcoin-client-${VERSION}.changelog.txt
 OBFUSCATE=$2
 MACVERSION=$3
 if [ -x ${MACVERSION} ];

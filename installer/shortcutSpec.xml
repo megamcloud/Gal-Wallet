@@ -1,0 +1,20 @@
+<shortcuts>
+	<skipIfNotSupported/>
+	<defaultCurrentUser/>
+	<programGroup defaultName="GAL" location="startMenu"/>
+	<shortcut
+		name="Gal server"
+		target="$INSTALL_PATH\nxt.exe"
+		commandLine=""
+		workingDirectory="$INSTALL_PATH"
+        description="Start GAL server"
+		iconFile="$INSTALL_PATH\html\www\favicon.ico"
+        iconIndex="0"
+        initialState="normal"
+        programGroup="yes"
+		desktop="yes"
+        applications="no"
+        startMenu="no"
+		startup="no">
+	</shortcut>	
+</shortcuts>

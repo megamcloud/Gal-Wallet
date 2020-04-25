@@ -1,11 +1,11 @@
 #!/bin/sh
-VERSION=$1
+VERSION=$1 1.11.15
 if [ -x ${VERSION} ];
 then
 	echo VERSION not defined
 	exit 1
 fi
-APPLICATION="nxt-clone"
+APPLICATION="galcoin"
 PACKAGE=${APPLICATION}-client-${VERSION}.zip
 echo PACKAGE="${PACKAGE}"
 

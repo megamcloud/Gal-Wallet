@@ -1,4 +1,4 @@
-Running the Galos software:
+Running the Nxt software:
 
 Dependencies: Java 8 or later needs to be installed first. Oracle JVM gives
 better performance and has been more tested, but OpenJDK is also supported.
@@ -7,15 +7,15 @@ better performance and has been more tested, but OpenJDK is also supported.
 Using the installer:
 
 An IzPack based installation package is provided. Click on the corresponding
-jar/exe/dmg package, or run "java -jar gal.jar" to start the
+jar/exe/dmg package, or run "java -jar nxt-client.jar" to start the
 installer. See https://bitbucket.org/JeanLucPicard/nxt/issues/283 for more
 details about the IzPack installer. After installation, use the shortcuts or
-desktop icons to start the Gal server.
+desktop icons to start the Nxt server.
 
 
-Using the gal-client.zip package:
+Using the nxt-client.zip package:
 
-Unpack the gal-client.zip package and open a shell in the resulting gal
+Unpack the nxt-client.zip package and open a shell in the resulting nxt
 directory. Execute the run.sh or start.sh script if using Linux or BSD, run.bat
 if using Windows, or run.command if using Mac.
 
@@ -28,16 +28,16 @@ uses desktop mode, creating a desktop tray icon and opening the JavaFX UI if
 supported.
 
 The initialization takes a few seconds. When it is ready, you should see the
-message "Gal server 1.x.x started successfully" in the console log. If run in
+message "Nxt server 1.x.x started successfully" in the console log. If run in
 desktop mode, a JavaFX window will open automatically. Otherwise, open a
 browser, without stopping the java process, and go to http://localhost:7876 ,
-where the Gal UI should now be available.
+where the Nxt UI should now be available.
 
 To stop the application, type Ctrl-C inside the console window, or use the
 stop.sh script if started with start.sh.
 
 Warning: It is better to use only latin characters and no spaces in the path
-to the Gal installation directory, as the use of special characters may result
+to the Nxt installation directory, as the use of special characters may result
 in permissions denied error in the browser, which is a known jetty issue.
 
 
@@ -59,7 +59,7 @@ safe in the nxt.properties file.
 
 How to contribute?
 
-There are many ways to contribute to Gal. Here are some examples:
+There are many ways to contribute to Nxt. Here are some examples:
 
  * create pull requests
  * review pull requests
@@ -79,13 +79,13 @@ close the browser but keep the java process running. If you want to keep
 forging, make sure you do not click on "stop forging" when logging out. You can
 also just close the browser without logging out.
 
-The java process communicates with peers on port 47874 tcp by default. If you are
+The java process communicates with peers on port 7874 tcp by default. If you are
 behind a router or a firewall and want to have your node accept incoming peer
 connections, you should setup port forwarding. The server will still work though
 even if only outgoing connections are allowed, so opening this port is optional.
 
 The user interface is available on port 7876. This port also accepts http API
-requests which other Gal client applications could use.
+requests which other Nxt client applications could use.
 
 The blockchain is stored on disk using the H2 embedded database, inside the
 nxt_db directory. When upgrading, you should not delete the old nxt_db
@@ -94,7 +94,7 @@ the new version whenever needed. But there is no harm if you do delete the
 nxt_db, except that it will take some extra time to download the blockchain
 from scratch.
 
-The default Gal client does not store any wallet-type file on disk. Unlike
+The default Nxt client does not store any wallet-type file on disk. Unlike
 bitcoin, your password is the only thing you need to get access to your account,
 and is the only piece of data you need to backup or remember. This also means
 that anybody can get access to your account with only your password - so make

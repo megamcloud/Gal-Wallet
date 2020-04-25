@@ -1,35 +1,114 @@
-Running the Galos software:
+----
+# Nxt Blockchain Creation Kit #
 
-Dependencies: Java 8 or later needs to be installed first. Oracle JVM gives better performance and has been more tested, but OpenJDK is also supported.
+This package is intended to allow easy creation of new blockchain projects
+based on Nxt, satisfying the requirements of the Jelurida Public License
+version 1.1 for the Nxt Public Blockchain Platform.
 
-Execute the run.sh or start.sh script if using Linux or BSD, run.bat if using Windows, or run.command if using Mac.
+This is a starter kit for developers, not for end users. If you just install
+it and run it, you will get a blockchain with no tokens, no accounts, and no
+peers configured. To actually start a new blockchain using this kit, at least
+the genesis block parameters and accounts must be defined in
+conf/data/genesisParameters.json and conf/data/genesisAccounts.json.
 
-On Unix, the run.sh script must be run from within the installation directory, and uses this directory to search for configuration files, store logs, and for the nxt_db blockchain database. The start.sh script can be run from any directory, it starts the java process in the background and uses ~/.nxt for configuration files, logs, and the nxt_db database. Unlike run.sh, start.sh uses desktop mode, creating a desktop tray icon and opening the JavaFX UI if supported.
+Edit the genesisParameters.json file to define the timestamp of the genesis
+block for your new blockchain (epochBeginning), and the public key of the
+genesis account (genesisPublicKey).
 
-The initialization takes a few seconds. When it is ready, you should see the message "Galo Server 1.x.x started successfully" in the console log. If run in desktop mode, a JavaFX window will open automatically. Otherwise, open a browser, without stopping the java process, and go to http://localhost:7876 , where the Galo UI should now be available.
+The genesisAccounts.json file, and genesisAccounts-testnet.json for testnet,
+should contain the list of accounts to be created in the genesis block of the
+new blockchain, and their corresponding balances and public keys. The supplied
+genesisAccounts.json file is empty. To generate such a file containing both
+new user accounts, and the accounts of GAL holders from the Nxt public
+blockchain, you must use the JPLSnapshot utility from the Nxt Reference
+Software (NRS) v1.11.8 or later.
 
-To stop the application, type Ctrl-C inside the console window, or use the stop.sh script if started with start.sh.
+----
+### Using the JPLSnapshot NRS add-on ###
 
-Warning: It is better to use only latin characters and no spaces in the path to the Galo installation directory, as the use of special characters may result in permissions denied error in the browser, which is a known jetty issue.
+Download and install the latest Nxt package from the Jelurida repository:
 
-Customization:
+https://bitbucket.org/Jelurida/nxt/downloads
 
-There are many configuration parameters that could be changed, but the defaults are set so that normally you can run the program immediately after unpacking, without any additional configuration. To see what options are there, open the conf/nxt-default.properties file. All possible settings are listed, with detailed explanation. If you decide to change any setting, do not edit nxt-default.properties directly, but create a new conf/nxt.properties file and only add to it the properties that need to be different from the default values. You do not need to delete the defaults from nxt-default.properties, the settings in nxt.properties override those in nxt-default.properties. This way, when upgrading the software, you can safely overwrite nxt-default.properties with the updated file from the new package, while your customizations remain safe in the nxt.properties file.
+Enable the JPLSnapshot add-on in conf/nxt.properties by setting:
 
-Technical details:
+nxt.addOns=nxt.addons.JPLSnapshot
 
-The Galo software is a client-server application. It consists of a java server process, the one started by the run.sh script, and a javascript user interface run in a browser. A JavaFX UI is also available and starts automatically on supported configurations. To run a node, forge, update the blockchain, interact with peers, only the java process needs to be running, so you could logout and close the browser but keep the java process running. If you want to keep forging, make sure you do not click on "stop forging" when logging out. You can also just close the browser without logging out.
+Make sure your node is configured as full node (not light client), and let it
+download the full blockchain.
 
-The java process communicates with peers on port 47874 tcp by default. If you are behind a router or a firewall and want to have your node accept incoming peer connections, you should setup port forwarding. The server will still work though even if only outgoing connections are allowed, so opening this port is optional.
+The add-on downloadJPLSnapshot API should be available under:
 
-The user interface is available on port 7876. This port also accepts http API requests which other Galo client applications could use.
+http://localhost:7876/test?requestTag=ADDONS
 
-The blockchain is stored on disk using the H2 embedded database, inside the nxt_db directory. When upgrading, you should not delete the old nxt_db directory, upgrades always include code that can upgrade old database files to the new version whenever needed. But there is no harm if you do delete the nxt_db, except that it will take some extra time to download the blockchain from scratch.
 
-The default Galo client does not store any wallet-type file on disk. Unlike bitcoin, your password is the only thing you need to get access to your account, and is the only piece of data you need to backup or remember. This also means that anybody can get access to your account with only your password - so make sure it is long and random. A weak password will result in your funds being stolen immediately.
+Below is the documentation for how to use this API:
 
-The java process logs its activities and error messages to the standard output which you see in the console window, but also to a file nxt.log, which gets overwritten at restart. In case of an error, the nxt.log file may contain helpful information, so include its contents when submitting a bug report.
+----
+The downloadJPLSnapshot API can be used to generate a genesis block JSON for a
+clone to satisfy the JPL 10% sharedrop requirement to existing GAL holders.
 
-Compiling:
+This utility takes a snapshot of account balances and public keys on the Nxt
+blockchain as of the specified height, scales down the balance of each account
+proportionately so that the total of balances of sharedrop accounts is equal to
+10% of the total of all balances, and merges this data with the supplied new
+genesis accounts and balances.
 
-The source is included in the src subdirectory. To compile it on unix, just run the enclosed compile.sh script. This will compile all java classes and put them under the classes subdirectory, which is already in the classpath used by the run.sh startup script. The compiled class files can optionally be packaged in a gal.jar file using the enclosed jar.sh script, and then gal.jar should be included in the classpath instead of the classes subdirectory.
+Note that using a height more than 800 blocks in the past will normally require
+a blockchain rescan, which takes a few hours to complete. Do not interrupt this
+process.
+
+Request parameters
+
+    newGenesisAccounts - a JSON formatted file containing all new account
+    public keys and balances to be included in the clone genesis block
+    
+    height - the Nxt blockchain height at which to take the snapshot
+
+Response
+
+    A JSON formatted file, genesisAccounts.json, containing all public keys,
+    new accounts and sharedrop accounts, and their initial balances, which
+    should be placed in the conf/data directory of the clone blockchain.
+
+
+Input file format
+
+The input file should contain a map of account numbers to coin balances, and a
+list of account public keys. Account numbers can be specified in either numeric
+or RS format. Supplying the public key for each account is optional, but
+recommended. Forging requires a public key, so the accounts that are going to
+forge the first blocks of the blockchain must have their public keys in the file.
+Here is an example input file, which allocates 300M each to the
+accounts with passwords "0", "1" and "2", for a total of 900M to new accounts,
+resulting in 100M automatically allocated to existing GAL holders:
+
+```
+{
+    "balances": {
+         "GAL-NZKH-MZRE-2CTT-98NPZ": 30000000000000000,
+         "GAL-X5JH-TJKJ-DVGC-5T2V8": 30000000000000000,
+         "GAL-LTR8-GMHB-YG56-4NWSE": 30000000000000000
+     },
+     "publicKeys": [
+         "bf0ced0472d8ba3df9e21808e98e61b34404aad737e2bae1778cebc698b40f37",
+         "39dc2e813bb45ff063a376e316b10cd0addd7306555ca0dd2890194d37960152",
+         "011889a0988ccbed7f488878c62c020587de23ebbbae9ba56dd67fd9f432f808"
+     ]
+ }
+```
+
+----
+
+The generated genesisAccounts.json file should be placed in the conf/data
+directory for the new blockchain package, replacing the existing empty file.
+Changes in genesisAccounts.json are applied only when blockchain is started
+from scratch, i.e. previous database is missing.
+
+There are multiple other customizations that should be made for the newly
+created Nxt clone, such as changing the default peer ports in
+nxt/peer/Peer.java, defining default peers in nxt-default.properties, changing
+the coin name and software name in nxt/Nxt.java, customizing the UI, etc.
+Such customization work should be done by a competent developer, and is beyond
+the scope of this document.
+

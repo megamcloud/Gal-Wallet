@@ -9,7 +9,7 @@ else
 TESTS=$@
 fi
 
-/bin/rm -f nxt.jar
+/bin/rm -f gal.jar
 /bin/rm -rf classes
 /bin/mkdir -p classes/
 

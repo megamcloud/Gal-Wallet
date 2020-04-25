@@ -3779,11 +3779,11 @@ Packaging changes:
 
 To prevent intentional misunderstanding of why jar files hashes are never
 reproducible, the class files are now left unpacked in a classes subdirectory
-after compilation, instead of being packaged in a nxt.jar file. The run.sh and
+after compilation, instead of being packaged in a gal.jar file. The run.sh and
 run.bat scripts have been modified to include this directory on the classpath
-instead of the nxt.jar file. Those who still prefer to build a nxt.jar file, can
+instead of the gal.jar file. Those who still prefer to build a gal.jar file, can
 easily do that with the included jar.sh script, and modify the classpath to use
-it. A pre-built nxt.jar file will still be included for a few releases, as it
+it. A pre-built gal.jar file will still be included for a few releases, as it
 is expected by the restart code when upgrading from an older version, but is not
 otherwise used.
 
@@ -5200,7 +5200,7 @@ Added run.bat script for Windows users.
 
 Source code is now included in the release package under
 the src directory. The compile.sh and javadoc.sh scripts
-can be used to compile the source, and regenerate nxt.jar
+can be used to compile the source, and regenerate gal.jar
 and the javadoc documentation.
 
 
@@ -5382,13 +5382,13 @@ and the JSON-simple library. All Jetty libraries that are not used by Nxt
 are no longer included, which also results in a smaller distribution
 package.
 
-nxt/nxt.jar
+nxt/gal.jar
 This jar contains all compiled Nxt classes.
 
 nxt/run.sh
 This script is the simplest way to start Nxt, under Linux:
-java -Xmx1024M -cp nxt.jar:lib/*:conf nxt.Nxt
-As you can see, the classpath needs to include nxt.jar, all the jars under
+java -Xmx1024M -cp gal.jar:lib/*:conf nxt.Nxt
+As you can see, the classpath needs to include gal.jar, all the jars under
 lib, and the conf directory.
 
 Notably missing are start.jar, webapps, and the Jetty configuration
